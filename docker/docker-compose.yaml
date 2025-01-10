@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  clothesstore-mysql:
+    image: mysql
+    restart: always
+    container_name: "clothes-store-mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - "3310:3306"
+    volumes:
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+      - clothes-store-mysql-data:/var/lib/mysql
+
+  clothesstore-redis:
+    image: "redis:latest"
+    container_name: "clothes-store-redis-container"
+    ports:
+      - "6380:6379"
+    volumes:
+      - clothes-store-redis-data:/data
+
+volumes:
+  clothes-store-redis-data:
+  clothes-store-mysql-data:
