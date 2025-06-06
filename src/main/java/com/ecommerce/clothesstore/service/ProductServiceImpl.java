@@ -1,6 +1,7 @@
 package com.ecommerce.clothesstore.service;
 
 import com.ecommerce.clothesstore.entity.Product;
+import com.ecommerce.clothesstore.exceptions.ProductNotFoundException;
 import com.ecommerce.clothesstore.model.ProductResponse;
 import com.ecommerce.clothesstore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductResponse getProductById(Integer productId) {
-        Product product=productRepository.findById(productId).orElseThrow(()-> new RuntimeException("Product doesn't exist"));
+        Product product=productRepository.findById(productId).orElseThrow(()-> new ProductNotFoundException("Product doesn't exist"));
         return convertToProductResponse(product);
     }
 
